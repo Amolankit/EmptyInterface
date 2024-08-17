@@ -1,27 +1,27 @@
 namespace EmptyInterfaceSample.SuperTypeInterfaceSample.EvolvedInterfaceImplementation;
 
-// Adding Method to the IEdition Interface
-public interface IEdition
+// Adding Method to the IShippingMethod Interface
+public interface IShippingMethod
 {
-    void AdvanceEdition();
+    void AdvanceShippingMethod();
 }
 
-public class FirstEdition : IEdition
+public class StandardShipping : IShippingMethod
 {
-    public int EditionNumber { get; set; } = 1;
+    public int EstimatedDeliveryDays { get; private set; } = 5;
 
-    public void AdvanceEdition()
+    public void AdvanceShippingMethod()
     {
-        EditionNumber++;
+        EstimatedDeliveryDays--;
     }
 }
 
-public class MonthlyEdition : IEdition
+public class ExpressShipping : IShippingMethod
 {
-    public DateTime Month { get; set; }
+    public int EstimatedDeliveryDays { get; private set; } = 2;
 
-    public void AdvanceEdition()
+    public void AdvanceShippingMethod()
     {
-        Month = Month.AddMonths(1);
+        EstimatedDeliveryDays--;
     }
 }

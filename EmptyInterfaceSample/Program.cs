@@ -2,34 +2,28 @@
 
 // maker interface calls
 
+using EmptyInterfaceSample.MakerInterfaceSample;
 using EmptyInterfaceSample.SuperTypeInterfaceSample.BlankInterfaceImplementation;
+using Shipment = EmptyInterfaceSample.SuperTypeInterfaceSample.BlankInterfaceImplementation.Shipment;
 
-var bookRepo = new EmptyInterfaceSample.MakerInterfaceSample.BookRepository();
-var book = bookRepo.GetById(1);
+var orderRepo = new OrderRepository();
+var order = orderRepo.GetById(1);
 
 // Empty Super Type Usage
-var release = new BookRelease
-{
-    Edition = new MonthlyEdition { Month = new DateTime(2023, 8, 1) }
-};
-release.PrintEditionDetails();
+var shipment = new Shipment { ShippingMethod = new ExpressShipping { EstimatedDeliveryDays = 2 } };
 
-release = new BookRelease
-{
-    Edition = new FirstEdition()
-};
-release.PrintEditionDetails();
+shipment.PrintShippingDetails();
 
 
 // Evolved Super type usage
-var firstEdition = new EmptyInterfaceSample.SuperTypeInterfaceSample.EvolvedInterfaceImplementation.FirstEdition();
-firstEdition.AdvanceEdition();
+var standardShipping = new EmptyInterfaceSample.SuperTypeInterfaceSample.EvolvedInterfaceImplementation.StandardShipping();
 
-Console.WriteLine($"Advanced Edition Number: {firstEdition.EditionNumber}");
+standardShipping.AdvanceShippingMethod();
 
-var monthlyEdition = new EmptyInterfaceSample.SuperTypeInterfaceSample.EvolvedInterfaceImplementation.MonthlyEdition { Month = new DateTime(2023, 8, 1) };
-monthlyEdition.AdvanceEdition();
+Console.WriteLine($"Updated Estimated Delivery Days: {standardShipping.EstimatedDeliveryDays}");
 
-Console.WriteLine($"Next Month: {monthlyEdition.Month.ToString("MMMM yyyy")}");
+var expressShipping = new EmptyInterfaceSample.SuperTypeInterfaceSample.EvolvedInterfaceImplementation.ExpressShipping();
 
-Console.WriteLine("Hello, World!");
+expressShipping.AdvanceShippingMethod();
+
+Console.WriteLine($"Updated Estimated Delivery Days: {expressShipping.EstimatedDeliveryDays}");

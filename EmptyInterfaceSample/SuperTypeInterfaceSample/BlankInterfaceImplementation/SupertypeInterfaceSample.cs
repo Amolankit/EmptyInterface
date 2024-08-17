@@ -1,33 +1,34 @@
 namespace EmptyInterfaceSample.SuperTypeInterfaceSample.BlankInterfaceImplementation;
 
-// Supertype Interface for Editions
-public interface IEdition { }
+// Supertype Interface for Shipping Methods
+public interface IShippingMethod { }
 
-// Concrete Edition Implementations
-public class FirstEdition : IEdition
+// Concrete Shipping Method Implementations
+public class StandardShipping : IShippingMethod
 {
-    public int EditionNumber { get; set; } = 1;
+    public int EstimatedDeliveryDays { get; set; } = 5;
 }
 
-public class MonthlyEdition : IEdition
+public class ExpressShipping : IShippingMethod
 {
-    public DateTime Month { get; set; }
+    public int EstimatedDeliveryDays { get; init; } = 2;
 }
 
-// Book Release that uses Editions
-public class BookRelease
+// Shipment that uses Shipping Methods
+public class Shipment
 {
-    public IEdition Edition { get; set; }
+    public IShippingMethod ShippingMethod { get; init; } = null!;
 
-    public void PrintEditionDetails()
+    public void PrintShippingDetails()
     {
-        if (Edition is FirstEdition firstEdition)
+        switch (ShippingMethod)
         {
-            Console.WriteLine($"First Edition - Edition Number: {firstEdition.EditionNumber}");
-        }
-        else if (Edition is MonthlyEdition monthlyEdition)
-        {
-            Console.WriteLine($"Monthly Edition - Month: {monthlyEdition.Month.ToString("MMMM yyyy")}");
+            case StandardShipping standardShipping:
+                Console.WriteLine($"Standard Shipping - Estimated Delivery: {standardShipping.EstimatedDeliveryDays} days");
+                break;
+            case ExpressShipping expressShipping:
+                Console.WriteLine($"Express Shipping - Estimated Delivery: {expressShipping.EstimatedDeliveryDays} days");
+                break;
         }
     }
 }
